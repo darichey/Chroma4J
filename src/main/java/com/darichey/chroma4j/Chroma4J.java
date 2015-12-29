@@ -4,19 +4,10 @@ import java.io.*;
 
 public class Chroma4J {
 	private static Chroma4J instance;
-	public boolean isDLLLoaded = false;
+	public static boolean isDLLLoaded = false;
 
-	private Chroma4J() {}
-
-	public static Chroma4J getInstance() {
-		if (instance == null) {
-			instance = new Chroma4J();
-		}
-		return instance;
-	}
-
-	public void setupDLLDir() {
-		InputStream dllStream = getClass().getClassLoader().getResourceAsStream(Reference.NAME + ".dll");
+	static {
+		InputStream dllStream = Chroma4J.class.getClassLoader().getResourceAsStream(Reference.NAME + ".dll");
 		FileOutputStream fos = null;
 		try {
 			File tmp = File.createTempFile(Reference.NAME, ".tmp");
@@ -33,5 +24,14 @@ public class Chroma4J {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private Chroma4J() {}
+
+	public static Chroma4J getInstance() {
+		if (instance == null) {
+			instance = new Chroma4J();
+		}
+		return instance;
 	}
 }

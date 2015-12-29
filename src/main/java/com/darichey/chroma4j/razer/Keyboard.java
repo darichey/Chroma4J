@@ -11,7 +11,7 @@ public class Keyboard {
 	public static final int NUM_KEYS = ROWS * COLUMNS;
 
 	public boolean setKeyColor(int row, int column , Color color) {
-		if (!Chroma4J.getInstance().isDLLLoaded) throw new IllegalStateException("setupDLLDir() must be executed.");
+		if (!Chroma4J.isDLLLoaded) throw new IllegalStateException("Something has gone horribly wrong.");
 		return NativeWrapper.setKeyColor(row, column, color.getRed(), color.getGreen(), color.getBlue());
 	}
 
